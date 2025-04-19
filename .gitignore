@@ -1,0 +1,24 @@
+# ========== IDEA / Java ==========
+.idea/
+*.iml
+*.class
+target/
+
+# ========== Node / Vue ==========
+node_modules/
+dist/
+.env*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# ========== OS ==========
+.DS_Store
+Thumbs.db
+
+# ========== Logs ==========
+*.log
+
+# ========== Others ==========
+.vscode/
+*.swp
