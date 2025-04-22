@@ -2,11 +2,11 @@ package com.example.entity;
 
 public class Course {
     private Integer id;
-    private Integer name;
-    private Integer no;
-    private Integer descri;
-    private Integer times;
-    private Integer teacher;
+    private String name;
+    private String no;
+    private String descri;
+    private String times;
+    private String teacher;
 
     public Integer getId() {
         return id;
@@ -16,43 +16,43 @@ public class Course {
         this.id = id;
     }
 
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 
-    public Integer getNo() {
+    public String getNo() {
         return no;
     }
 
-    public void setNo(Integer no) {
+    public void setNo(String no) {
         this.no = no;
     }
 
-    public Integer getDescri() {
+    public String getDescri() {
         return descri;
     }
 
-    public void setDescri(Integer descri) {
+    public void setDescri(String descri) {
         this.descri = descri;
     }
 
-    public Integer getTimes() {
+    public String getTimes() {
         return times;
     }
 
-    public void setTimes(Integer times) {
+    public void setTimes(String times) {
         this.times = times;
     }
 
-    public Integer getTeacher() {
+    public String getTeacher() {
         return teacher;
     }
 
-    public void setTeacher(Integer teacher) {
+    public void setTeacher(String teacher) {
         this.teacher = teacher;
     }
 }
