@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 
 @RestController
@@ -18,10 +19,19 @@ public class CourseController {
     @Resource
     private CourseService courseService;
 
+    @PostConstruct
+    public void init() {
+        System.out.println("✅ CourseController 初始化成功");
+    }
+
+
     @GetMapping("/selectPage")
     public Result selectPage(@RequestParam(defaultValue = "1") Integer pageNum,
-                             @RequestParam(defaultValue = "5")Integer pageSize) {
-        PageInfo<Course> pageInfo = courseService.selectPage(pageNum, pageSize);
+                             @RequestParam(defaultValue = "5")Integer pageSize,
+                             Course course) {
+        PageInfo<Course> pageInfo = courseService.selectPage(pageNum, pageSize, course);
         return Result.success(pageInfo);
     }
+
+
 }
