@@ -18,9 +18,9 @@ public class CourseService {
 
     //total 为查询的总数  list为数据列表
     //pageNum 为当前页码  pageSize为每页的个数
-    public PageInfo<Course> selectPage(Integer pageNum, Integer pageSize){
+    public PageInfo<Course> selectPage(Integer pageNum, Integer pageSize, Course course){
         PageHelper.startPage(pageNum, pageSize);
-        List<Course> courseList = courseMapper.selectAll();
+        List<Course> courseList = courseMapper.selectAll(course);
         return PageInfo.of(courseList);
     }
 }
