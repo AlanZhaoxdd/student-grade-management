@@ -10,7 +10,7 @@
 
     <div class="card" style="margin-bottom: 10px">
       <div style="margin-bottom: 10px">
-          <el-button type="primary">新增</el-button>
+          <el-button type="primary" @click="handleAdd">新增</el-button>
       </div>
 
       <div>
@@ -23,7 +23,7 @@
           <el-table-column prop="teacher" label="任课老师"  />
           <el-table-column>
             <template #default="scope">
-              <el-button type="primary" plain>编辑</el-button>
+              <el-button type="primary" plain @click="handleEdit(scope.row)">编辑</el-button>
               <el-button type="danger" plain>删除</el-button>
             </template>
           </el-table-column>
@@ -37,6 +37,33 @@
                      @current-change="handleCurrentChange"
                      background layout="prev, pager, next" :total="data.total" />
     </div>
+
+    <el-dialog width="35%" v-model="data.formVisible" title="课程信息">
+      <el-form :model="data.form" label-width="100px" label-position="right" style="padding-right: 40px">
+        <el-form-item label="课程名称">
+          <el-input v-model="data.form.name" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="课程编号">
+          <el-input v-model="data.form.no" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="课程描述">
+          <el-input v-model="data.form.descri" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="课程时间">
+          <el-input v-model="data.form.times" autocomplete="off" />
+        </el-form-item>
+        <el-form-item label="任课老师">
+          <el-input v-model="data.form.teacher" autocomplete="off" />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="data.formVisible = false">取 消</el-button>
+          <el-button type="primary" @click="save">保 存</el-button>
+        </span>
+      </template>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -44,6 +71,7 @@
 import { reactive } from "vue";
 import { Search } from '@element-plus/icons-vue'
 import request from "@/utils/request";
+import {ElMessage} from "element-plus";
 
 const data = reactive({
   name: '',
@@ -52,8 +80,9 @@ const data = reactive({
   tableData: [],
   total: 0,
   pageNum: 1,  //当前页码
-  pageSize: 5  //每页的个数
-
+  pageSize: 5,  //每页的个数
+  formVisible: false,
+  form:  {}
 })
 
 const load = () => {
@@ -83,5 +112,32 @@ const reset = () => {
   data.no = ''
   data.teacher = ''
   load()
+}
+
+const handleAdd = () => {
+  data.form = {}
+  data.formVisible = true
+}
+
+//保存数据到后台
+const save = () => {
+  request.request({
+    url: data.form.id ? '/course/update' : '/course/add',
+    method: data.form.id ? 'PUT' : 'POST',
+    data: data.form
+  }).then(res => {
+    if (res.code === '200') {
+      load()  //操作成功重新获取一遍数据
+      data.formVisible = false //关闭弹窗
+      ElMessage.success('保存成功')
+    } else {
+      ElMessage.error('res.msg')
+    }
+  })
+}
+
+const handleEdit = (row) => {
+  data.form = JSON.parse(JSON.stringify(row))
+  data.formVisible = true
 }
 </script>
