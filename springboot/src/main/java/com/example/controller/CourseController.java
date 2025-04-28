@@ -21,7 +21,9 @@ public class CourseController {
         System.out.println("✅ CourseController 初始化成功");
     }
 
-
+    /**
+     * 分页条件查询课程
+     */
     @GetMapping("/selectPage")
     public Result selectPage(@RequestParam(defaultValue = "1") Integer pageNum,
                              @RequestParam(defaultValue = "5")Integer pageSize,
@@ -30,15 +32,30 @@ public class CourseController {
         return Result.success(pageInfo);
     }
 
+    /**
+     * 新增课程
+     */
     @PostMapping("/add")
     public Result add(@RequestBody Course course) {
         courseService.add(course);
         return Result.success();
     }
 
+    /**
+     * 更新课程
+     */
     @PutMapping("/update")
     public Result update(@RequestBody Course course) {
         courseService.updateById(course);
+        return Result.success();
+    }
+
+    /**
+     * 删除课程
+     */
+    @DeleteMapping("/delete/{id}")
+    public Result delete(@PathVariable Integer id) {
+        courseService.deleteById(id);
         return Result.success();
     }
 }
