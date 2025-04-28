@@ -21,7 +21,7 @@
           <el-table-column prop="descri" label="课程描述"  />
           <el-table-column prop="times" label="课程时间"  />
           <el-table-column prop="teacher" label="任课老师"  />
-          <el-table-column>
+          <el-table-column label="操作" width="180">
             <template #default="scope">
               <el-button type="primary" plain @click="handleEdit(scope.row)">编辑</el-button>
               <el-button type="danger" plain @click="del(scope.row.id)">删除</el-button>
@@ -148,7 +148,7 @@ const del = (id) => {
         load()  //操作成功重新获取一遍数据
         ElMessage.success('保存成功')
       } else {
-        ElMessage.error('res.msg')
+        ElMessage.error(res.msg)
       }
     })
   }).catch(res => {})
